@@ -36,3 +36,5 @@ jobs:
           files: dist/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+Add release step to workflow
+
