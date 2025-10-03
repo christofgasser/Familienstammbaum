@@ -2,6 +2,7 @@
   "name": "familienstammbaum",
   "version": "1.0.0",
   "description": "Interaktive Familienstammbaum-App",
+  "author": "Christof Gasser",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
