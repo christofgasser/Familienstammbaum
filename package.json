@@ -11,8 +11,7 @@
   "build": {
     "appId": "com.familienstammbaum.app",
     "win": {
-      "target": "nsis",
-      "icon": "public/icon.png"
+      "target": "nsis"
     }
   },
   "dependencies": {
