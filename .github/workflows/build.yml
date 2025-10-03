@@ -1,29 +1,38 @@
-{
-  "name": "familienstammbaum",
-  "version": "1.0.0",
-  "description": "Interaktive Familienstammbaum-App",
-  "author": "Christof Gasser",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "build": "electron-builder"
-  },
-  "build": {
-    "appId": "com.familienstammbaum.app",
-    "win": {
-      "target": "nsis"
-    }
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwindcss": "^3.3.2",
-    "jspdf": "^2.5.1",
-    "html2canvas": "^1.4.1"
-  },
-  "devDependencies": {
-    "electron": "^29.0.0",
-    "electron-builder": "^24.6.0"
-  }
-}
+name: Build Electron App
 
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Clean install
+        run: |
+          if exist node_modules rmdir /s /q node_modules
+          if exist package-lock.json del package-lock.json
+          npm install
+
+      - name: Build app
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: |
+            dist/*.exe
+            dist/**/*.exe
+            dist/**/*
